@@ -1,7 +1,7 @@
 package ru.rsreu.gorkin.codeanalyzer.syntaxelements;
 
 import com.github.javaparser.ast.CompilationUnit;
-import ru.rsreu.gorkin.codeanalyzer.metrics.Metrics;
+import ru.rsreu.gorkin.codeanalyzer.metrics.Metric;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class SourceCodeUnit extends Unit {
 
     @Override
     public void calculateMetrics() {
-        for (Metrics metric : getMetrics()) {
+        for (Metric metric : getMetrics()) {
             metric.process(compilationUnit);
         }
         classOrInterfaceUnits.forEach(ClassOrInterfaceUnit::calculateMetrics);

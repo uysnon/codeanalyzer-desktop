@@ -4,12 +4,12 @@ import com.github.javaparser.ast.Node;
 
 import java.util.Objects;
 
-public abstract class Metrics<T extends Node> {
+public abstract class Metric<T extends Node> {
     private int count;
     private String title;
     private String description;
 
-    public Metrics() {
+    public Metric() {
     }
 
     public int getCount() {
@@ -42,11 +42,11 @@ public abstract class Metrics<T extends Node> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Metrics)) return false;
-        Metrics metrics = (Metrics) o;
-        return count == metrics.count &&
-                Objects.equals(title, metrics.title) &&
-                Objects.equals(description, metrics.description);
+        if (!(o instanceof Metric)) return false;
+        Metric metric = (Metric) o;
+        return count == metric.count &&
+                Objects.equals(title, metric.title) &&
+                Objects.equals(description, metric.description);
     }
 
     @Override

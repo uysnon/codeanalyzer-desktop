@@ -1,18 +1,24 @@
 package ru.rsreu.gorkin.codeanalyzer.syntaxelements;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import ru.rsreu.gorkin.codeanalyzer.metrics.Metrics;
+import ru.rsreu.gorkin.codeanalyzer.metrics.Metric;
+import ru.rsreu.gorkin.codeanalyzer.metrics.classorinterface.FieldsClassMetric;
+import ru.rsreu.gorkin.codeanalyzer.metrics.classorinterface.InitializerDeclarationsClassMetric;
+import ru.rsreu.gorkin.codeanalyzer.metrics.classorinterface.MethodsClassMetric;
+import ru.rsreu.gorkin.codeanalyzer.metrics.classorinterface.StaticInitializerDeclarationsClassMetric;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassOrInterfaceUnit extends Unit {
     private ClassOrInterfaceDeclaration classOrInterfaceDeclaration;
-    private List<MethodUnit> methods;
+    private List<MethodUnit> methodUnits;
+    private List<InitializerDeclarationUnit> initializerDeclarationUnits;
 
     public ClassOrInterfaceUnit(ClassOrInterfaceDeclaration classOrInterfaceDeclaration) {
         this.classOrInterfaceDeclaration = classOrInterfaceDeclaration;
-        this.methods = new ArrayList<>();
+        this.methodUnits = new ArrayList<>();
+        this.initializerDeclarationUnits = new ArrayList<>();
         addAllMetrics();
     }
 
@@ -24,25 +30,38 @@ public class ClassOrInterfaceUnit extends Unit {
         this.classOrInterfaceDeclaration = classOrInterfaceDeclaration;
     }
 
-    public List<MethodUnit> getMethods() {
-        return methods;
+    public List<MethodUnit> getMethodUnits() {
+        return methodUnits;
     }
 
-    public void setMethods(List<MethodUnit> methods) {
-        this.methods = methods;
+    public void setMethodUnits(List<MethodUnit> methodUnits) {
+        this.methodUnits = methodUnits;
     }
 
+    public List<InitializerDeclarationUnit> getInitializerDeclarationUnits() {
+        return initializerDeclarationUnits;
+    }
+
+    public void setInitializerDeclarationUnits(List<InitializerDeclarationUnit> initializerDeclarationUnits) {
+        this.initializerDeclarationUnits = initializerDeclarationUnits;
+    }
 
     @Override
     public void calculateMetrics() {
-        for (Metrics metric : getMetrics()) {
+        for (Metric metric : getMetrics()) {
             metric.process(classOrInterfaceDeclaration);
         }
-        methods.forEach(MethodUnit::calculateMetrics);
+        methodUnits.forEach(MethodUnit::calculateMetrics);
+        initializerDeclarationUnits.forEach(
+                InitializerDeclarationUnit::calculateMetrics
+        );
     }
 
     @Override
     protected void addCustomUnitMetrics() {
-
+        addMetrics(new FieldsClassMetric(),
+                new MethodsClassMetric(),
+                new InitializerDeclarationsClassMetric(),
+                new StaticInitializerDeclarationsClassMetric());
     }
 }

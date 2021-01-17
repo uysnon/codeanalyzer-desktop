@@ -1,7 +1,9 @@
 package ru.rsreu.gorkin.codeanalyzer.syntaxelements;
 
 import com.github.javaparser.ast.body.MethodDeclaration;
-import ru.rsreu.gorkin.codeanalyzer.metrics.Metrics;
+import ru.rsreu.gorkin.codeanalyzer.metrics.Metric;
+import ru.rsreu.gorkin.codeanalyzer.metrics.method.IfStatementsMethodMetric;
+import ru.rsreu.gorkin.codeanalyzer.metrics.method.SwitchStatementsMethodMetric;
 
 public class MethodUnit extends Unit {
     private MethodDeclaration methodDeclaration;
@@ -14,12 +16,13 @@ public class MethodUnit extends Unit {
 
     @Override
     protected void addCustomUnitMetrics() {
-
+        addMetrics(new IfStatementsMethodMetric(),
+                new SwitchStatementsMethodMetric());
     }
 
     @Override
     public void calculateMetrics() {
-        for (Metrics metric : getMetrics()) {
+        for (Metric metric : getMetrics()) {
             metric.process(methodDeclaration);
         }
     }
