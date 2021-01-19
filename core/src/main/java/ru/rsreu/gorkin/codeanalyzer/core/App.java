@@ -1,4 +1,4 @@
-package ru.rsreu.gorkin.codeanalyzer;
+package ru.rsreu.gorkin.codeanalyzer.core;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
