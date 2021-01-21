@@ -2,6 +2,8 @@ package ru.rsreu.gorkin.codeanalyzer.desktop;
 
 import ru.rsreu.gorkin.codeanalyzer.desktop.windows.StartWindow;
 
+import javax.swing.*;
+
 public class App {
     public static void main(String[] args) {
         App app = new App();

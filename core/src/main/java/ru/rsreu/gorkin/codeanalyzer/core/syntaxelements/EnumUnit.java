@@ -12,6 +12,14 @@ public class EnumUnit extends Unit {
         addAllMetrics();
     }
 
+    public EnumDeclaration getEnumDeclaration() {
+        return enumDeclaration;
+    }
+
+    public void setEnumDeclaration(EnumDeclaration enumDeclaration) {
+        this.enumDeclaration = enumDeclaration;
+    }
+
     @Override
     public void calculateMetrics() {
         for (Metric metric : getMetrics()) {

@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -88,6 +90,21 @@ public class StartWindow {
 
         javaFilesTable = new JTable(javaFilesTableModel);
         javaFilesTable.setBackground(backgroundColorForBaseElements);
+        javaFilesTable.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+                    JavaFileDialog dialog = new JavaFileDialog(
+                            ExtensionUtils.getFileNameFrom(selectedFilesAndDirectories.get(row).toString()),
+                            fileSourceCodeUnitMap.get(selectedFilesAndDirectories.get(row)),
+                            windowJFrame);
+                    dialog.show();
+                }
+            }
+        });
 
 
         scrollPaneForJavaFilesTable = new JScrollPane(javaFilesTable);
@@ -111,9 +128,11 @@ public class StartWindow {
 
     private void updateTable() {
         javaFilesTableModel.setRowCount(0);
+        selectedFilesAndDirectories = new ArrayList<>();
         fileSourceCodeUnitMap.keySet().stream()
                 .sorted(Comparator.comparing(file -> ExtensionUtils.getFileNameFrom(file.toString())))
                 .forEach(file -> {
+                    selectedFilesAndDirectories.add(file);
                     Metric metric = fileSourceCodeUnitMap.get(file).getMetrics().get(0);
                     javaFilesTableModel.addRow(new Object[]
                             {
