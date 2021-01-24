@@ -14,6 +14,14 @@ public class MethodUnit extends Unit {
         addAllMetrics();
     }
 
+    public MethodDeclaration getMethodDeclaration() {
+        return methodDeclaration;
+    }
+
+    public void setMethodDeclaration(MethodDeclaration methodDeclaration) {
+        this.methodDeclaration = methodDeclaration;
+    }
+
     @Override
     protected void addCustomUnitMetrics() {
         addMetrics(new IfStatementsMethodMetric(),

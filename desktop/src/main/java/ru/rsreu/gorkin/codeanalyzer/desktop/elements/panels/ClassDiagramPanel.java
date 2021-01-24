@@ -15,8 +15,9 @@ public class ClassDiagramPanel extends JPanel {
     List<JButton> classes;
     Color arrowColor = new Color(41, 50, 65 );
 
-    public ClassDiagramPanel(List<JButton> classes) {
-        super(new GridLayout(0, 2, 40, 40));
+    public ClassDiagramPanel(List<JButton> classes, GridLayout gridLayout) {
+        super(gridLayout);
+        int cols = classes.size() >= 2 ? 2 : 1;
         setBorder(new EmptyBorder(30, 30, 30, 30));
         this.classes = classes;
     }
