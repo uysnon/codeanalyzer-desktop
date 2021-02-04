@@ -2,8 +2,6 @@ package ru.rsreu.gorkin.codeanalyzer.core.syntaxelements;
 
 import com.github.javaparser.ast.body.InitializerDeclaration;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.initializerdeclaration.IfStatementsInitializerDeclarationMetric;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.initializerdeclaration.SwitchStatementsInitializerDeclarationMetric;
 
 public class InitializerDeclarationUnit extends BlockUnit {
     private InitializerDeclaration initializerDeclaration;

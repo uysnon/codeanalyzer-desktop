@@ -2,8 +2,6 @@ package ru.rsreu.gorkin.codeanalyzer.core.syntaxelements;
 
 import com.github.javaparser.ast.body.MethodDeclaration;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.method.IfStatementsMethodMetric;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.method.SwitchStatementsMethodMetric;
 
 public class MethodUnit extends BlockUnit {
     private MethodDeclaration methodDeclaration;

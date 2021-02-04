@@ -2,8 +2,6 @@ package ru.rsreu.gorkin.codeanalyzer.core.syntaxelements;
 
 import com.github.javaparser.ast.body.ConstructorDeclaration;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.constructor.IfStatementsConstructorMetric;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.constructor.SwitchStatementsConstructorMetric;
 
 public class ConstructorUnit extends BlockUnit {
     private ConstructorDeclaration constructorDeclaration;
