@@ -2,6 +2,7 @@ package ru.rsreu.gorkin.codeanalyzer.core.syntaxelements;
 
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.base.CodeLinesMetric;
+import ru.rsreu.gorkin.codeanalyzer.core.metrics.base.IfStatementsMetric;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,6 @@ public abstract class Unit {
     protected abstract void addCustomUnitMetrics();
 
     protected void addBaseUnitMetrics() {
-        metrics.add(new CodeLinesMetric());
+        addMetrics(new CodeLinesMetric());
     }
 }

@@ -5,43 +5,39 @@ import ru.rsreu.gorkin.codeanalyzer.desktop.elements.utils.PathFinder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ClassDiagramPanel extends JPanel {
+public class FileDiagramPanel extends JPanel {
     Graphics2D graphics;
-    List<JButton> classElements;
-    Component startComponent;
+    List<JButton> classes;
     Color arrowColor = new Color(41, 50, 65 );
 
-    public ClassDiagramPanel(java.util.List<JButton> classElements, GridLayout gridLayout, Component startComponent) {
+    public FileDiagramPanel(List<JButton> classes, GridLayout gridLayout) {
         super(gridLayout);
+        int cols = classes.size() >= 2 ? 2 : 1;
         setBorder(new EmptyBorder(30, 30, 30, 30));
-        this.startComponent = startComponent;
-        this.classElements = classElements;
+        this.classes = classes;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         graphics = (Graphics2D) g;
-        List<Component> barriers = new ArrayList<>();;
-        barriers.addAll(classElements);
-        barriers.add(startComponent);
-
-        for (JButton button : classElements) {
+        for (JButton button : classes) {
 //            drawArrow(
 //                    0,
 //                    0,
 //                    button.getX(),
 //                    button.getY() + (double) button.getHeight() / 2);
 
+
             List<Point2D> points = new PathFinder().findPath(
-                    new Point2D.Double(startComponent.getX(), startComponent.getY()+startComponent.getHeight()/2.0),
+                    new Point2D.Double(0, getHeight()/2.0),
 //                    classes.stream().filter(jButton -> jButton != button).toArray(JComponent[]::new),
-                    barriers.toArray(new JComponent[0]),
+                    classes.toArray(new JButton[0]),
                     button
             );
 

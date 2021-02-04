@@ -1,8 +1,6 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop;
 
-import ru.rsreu.gorkin.codeanalyzer.desktop.windows.StartWindow;
-
-import javax.swing.*;
+import ru.rsreu.gorkin.codeanalyzer.desktop.frames.StartWindow;
 
 public class App {
     public static void main(String[] args) {

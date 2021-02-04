@@ -1,10 +1,11 @@
-package ru.rsreu.gorkin.codeanalyzer.desktop.windows;
+package ru.rsreu.gorkin.codeanalyzer.desktop.frames;
 
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.ClassOrInterfaceUnit;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.EnumUnit;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
-import ru.rsreu.gorkin.codeanalyzer.desktop.elements.files.fileutils.ExtensionUtils;
-import ru.rsreu.gorkin.codeanalyzer.desktop.elements.panels.ClassDiagramPanel;
+import ru.rsreu.gorkin.codeanalyzer.desktop.elements.panels.FileDiagramPanel;
+import ru.rsreu.gorkin.codeanalyzer.desktop.elements.table.NoneEditableTableModel;
+import ru.rsreu.gorkin.codeanalyzer.desktop.elements.utils.MetricsBySpecificityComparator;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.utils.TextColorUtils;
 
 import javax.swing.*;
@@ -12,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +35,7 @@ public class JavaFileDialog {
     private JDialog dialog;
     private JPanel panel;
     private JPanel schemaPanel;
+    private JScrollPane scrollPaneForDiagram;
     private JLabel label;
 
     private JTable metricsTable;
@@ -63,10 +64,12 @@ public class JavaFileDialog {
         panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         label = new JLabel(fileName);
 
-        metricsTableModel = new DefaultTableModel();
+        metricsTableModel = new NoneEditableTableModel();
         metricsTableModel.addColumn("Метрика");
         metricsTableModel.addColumn("Величина");
-        sourceCodeUnit.getMetrics().forEach(metric ->
+        sourceCodeUnit.getMetrics().stream()
+                .sorted(new MetricsBySpecificityComparator())
+                .forEach(metric ->
                 metricsTableModel.addRow(new Object[]
                         {
                                 metric.getTitle(),
@@ -133,12 +136,17 @@ public class JavaFileDialog {
         int cols = classes.size() >= 2 ? 2 : 1;
         GridLayout gridLayout = new GridLayout(0, cols, 40, 40);
 
-        schemaPanel = new ClassDiagramPanel(classes, gridLayout);
+        schemaPanel = new FileDiagramPanel(classes, gridLayout);
         schemaPanel.setBackground(Color.WHITE);
 
         classes.forEach(schemaPanel::add);
+
+        scrollPaneForDiagram = new JScrollPane(schemaPanel);
+        scrollPaneForDiagram.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneForDiagram.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
         panel.add(label);
-        panel.add(new JScrollPane(schemaPanel));
+        panel.add(scrollPaneForDiagram);
         panel.add(scrollPaneForJavaMetricsTable);
 
 

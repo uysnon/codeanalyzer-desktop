@@ -10,15 +10,19 @@ import ru.rsreu.gorkin.codeanalyzer.core.metrics.classorinterface.StaticInitiali
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassOrInterfaceUnit extends Unit {
+public class ClassOrInterfaceUnit extends BlockUnit {
     private ClassOrInterfaceDeclaration classOrInterfaceDeclaration;
     private List<MethodUnit> methodUnits;
     private List<InitializerDeclarationUnit> initializerDeclarationUnits;
+    private List<ConstructorUnit> constructorUnits;
+    private List<FieldUnit> fieldUnits;
 
     public ClassOrInterfaceUnit(ClassOrInterfaceDeclaration classOrInterfaceDeclaration) {
         this.classOrInterfaceDeclaration = classOrInterfaceDeclaration;
         this.methodUnits = new ArrayList<>();
         this.initializerDeclarationUnits = new ArrayList<>();
+        this.constructorUnits = new ArrayList<>();
+        this.fieldUnits = new ArrayList<>();
         addAllMetrics();
     }
 
@@ -44,6 +48,22 @@ public class ClassOrInterfaceUnit extends Unit {
 
     public void setInitializerDeclarationUnits(List<InitializerDeclarationUnit> initializerDeclarationUnits) {
         this.initializerDeclarationUnits = initializerDeclarationUnits;
+    }
+
+    public List<ConstructorUnit> getConstructorUnits() {
+        return constructorUnits;
+    }
+
+    public void setConstructorUnits(List<ConstructorUnit> constructorUnits) {
+        this.constructorUnits = constructorUnits;
+    }
+
+    public List<FieldUnit> getFieldUnits() {
+        return fieldUnits;
+    }
+
+    public void setFieldUnits(List<FieldUnit> fieldUnits) {
+        this.fieldUnits = fieldUnits;
     }
 
     @Override

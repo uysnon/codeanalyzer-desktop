@@ -1,18 +1,16 @@
-package ru.rsreu.gorkin.codeanalyzer.desktop.windows;
+package ru.rsreu.gorkin.codeanalyzer.desktop.frames;
 
 import ru.rsreu.gorkin.codeanalyzer.core.adapters.TreeCreator;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
-import ru.rsreu.gorkin.codeanalyzer.desktop.App;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.files.JavaFilesChooser;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.files.fileutils.ExtensionUtils;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.files.fileutils.FilesFinder;
+import ru.rsreu.gorkin.codeanalyzer.desktop.elements.table.NoneEditableTableModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -84,7 +82,7 @@ public class StartWindow {
         });
         chooseFileButton.setBackground(backgroundColorForBaseElements);
 
-        javaFilesTableModel = new DefaultTableModel();
+        javaFilesTableModel = new NoneEditableTableModel();
         javaFilesTableModel.addColumn("Файл");
         javaFilesTableModel.addColumn("Метрики");
 

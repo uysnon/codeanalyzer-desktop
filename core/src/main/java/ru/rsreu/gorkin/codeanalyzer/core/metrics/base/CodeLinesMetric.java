@@ -3,9 +3,8 @@ package ru.rsreu.gorkin.codeanalyzer.core.metrics.base;
 import com.github.javaparser.Position;
 import com.github.javaparser.Range;
 import com.github.javaparser.ast.Node;
-import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 
-public class CodeLinesMetric extends Metric<Node> {
+public class CodeLinesMetric extends BaseMetric {
     private static final String TITLE = "Количество строк кода";
     private static final String DESCRIPTION = "Количество строк кода, занимаемое элементом";
 

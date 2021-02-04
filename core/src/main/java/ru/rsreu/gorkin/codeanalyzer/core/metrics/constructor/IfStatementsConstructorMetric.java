@@ -1,21 +1,22 @@
-package ru.rsreu.gorkin.codeanalyzer.core.metrics.initializerdeclaration;
+package ru.rsreu.gorkin.codeanalyzer.core.metrics.constructor;
 
-import com.github.javaparser.ast.body.InitializerDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.utils.BlockStatementsCounter;
 
-public class IfStatementsInitializerDeclarationMetric extends InitializerDeclarationMetric{
+public class IfStatementsConstructorMetric extends ConstructorMetric{
+
     private static final String TITLE = "if выражения";
     private static final String DESCRIPTION = "Количество if выражений";
 
-    public IfStatementsInitializerDeclarationMetric() {
+    public IfStatementsConstructorMetric() {
         setTitle(TITLE);
         setDescription(DESCRIPTION);
     }
 
     @Override
-    public void process(InitializerDeclaration initializerDeclaration) {
-        BlockStmt blockStmt = initializerDeclaration.getChildNodes()
+    public void process(ConstructorDeclaration constructorDeclaration) {
+        BlockStmt blockStmt = constructorDeclaration.getChildNodes()
                 .stream()
                 .filter(node -> node instanceof BlockStmt)
                 .map(node -> (BlockStmt) node)

@@ -2,10 +2,7 @@ package ru.rsreu.gorkin.codeanalyzer.core.adapters;
 
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.EnumDeclaration;
-import com.github.javaparser.ast.body.InitializerDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
+import com.github.javaparser.ast.body.*;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.*;
 
 import java.io.File;
@@ -50,6 +47,21 @@ public class TreeCreator {
                         .filter(node -> node instanceof InitializerDeclaration)
                         .map(node -> new InitializerDeclarationUnit((InitializerDeclaration) node))
                         .forEach(initializerDeclarationUnit -> element.getInitializerDeclarationUnits().add(initializerDeclarationUnit))
+        );
+
+        classes.forEach(
+                element -> element.getClassOrInterfaceDeclaration().getMembers().stream()
+                        .filter(node -> node instanceof FieldDeclaration)
+                        .map(node -> new FieldUnit((FieldDeclaration) node))
+                        .forEach(fieldUnit -> element.getFieldUnits().add(fieldUnit))
+        );
+
+
+        classes.forEach(
+                element -> element.getClassOrInterfaceDeclaration().getMembers().stream()
+                        .filter(node -> node instanceof ConstructorDeclaration)
+                        .map(node -> new ConstructorUnit((ConstructorDeclaration) node))
+                        .forEach(constructorUnit -> element.getConstructorUnits().add(constructorUnit))
         );
 
 

@@ -6,7 +6,7 @@ import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SourceCodeUnit extends Unit {
+public class SourceCodeUnit extends BlockUnit {
     private CompilationUnit compilationUnit;
     private List<ClassOrInterfaceUnit> classOrInterfaceUnits;
     private List<EnumUnit> enumUnits;

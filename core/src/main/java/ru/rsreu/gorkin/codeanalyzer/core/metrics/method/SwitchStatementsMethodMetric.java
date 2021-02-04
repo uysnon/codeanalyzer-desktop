@@ -23,7 +23,7 @@ public class SwitchStatementsMethodMetric extends MethodMetric {
                 .orElse(null);
         int count = 0;
         if (blockStmt != null) {
-            count = new BlockStatementsCounter().calculateSwitchStatements(blockStmt);
+            count = new BlockStatementsCounter().calculateRecursiveSwitchStatements(blockStmt);
         }
         setCount(count);
     }

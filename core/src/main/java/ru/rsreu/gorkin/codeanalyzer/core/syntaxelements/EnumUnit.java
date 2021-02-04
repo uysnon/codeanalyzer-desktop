@@ -4,7 +4,7 @@ import com.github.javaparser.ast.body.EnumDeclaration;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.enums.CountElementsEnumMetric;
 
-public class EnumUnit extends Unit {
+public class EnumUnit extends BlockUnit {
     private EnumDeclaration enumDeclaration;
 
     public EnumUnit(EnumDeclaration enumDeclaration) {

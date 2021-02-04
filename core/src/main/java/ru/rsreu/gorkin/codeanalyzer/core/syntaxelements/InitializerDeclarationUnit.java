@@ -5,7 +5,7 @@ import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.initializerdeclaration.IfStatementsInitializerDeclarationMetric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.initializerdeclaration.SwitchStatementsInitializerDeclarationMetric;
 
-public class InitializerDeclarationUnit extends Unit {
+public class InitializerDeclarationUnit extends BlockUnit {
     private InitializerDeclaration initializerDeclaration;
 
     public InitializerDeclarationUnit(InitializerDeclaration initializerDeclaration) {
@@ -22,7 +22,5 @@ public class InitializerDeclarationUnit extends Unit {
 
     @Override
     protected void addCustomUnitMetrics() {
-        addMetrics(new IfStatementsInitializerDeclarationMetric(),
-                new SwitchStatementsInitializerDeclarationMetric());
     }
 }

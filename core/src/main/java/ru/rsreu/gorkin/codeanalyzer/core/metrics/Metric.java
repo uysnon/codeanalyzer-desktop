@@ -6,18 +6,20 @@ import java.util.Objects;
 
 public abstract class Metric<T extends Node> {
     private int count;
+    private int specificityRate;
     private String title;
     private String description;
 
     public Metric() {
-    }
-
-    public int getCount() {
-        return count;
+        this.specificityRate = 0;
     }
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public String getTitle() {
@@ -36,6 +38,13 @@ public abstract class Metric<T extends Node> {
         this.description = description;
     }
 
+    public int getSpecificityRate() {
+        return specificityRate;
+    }
+
+    public void setSpecificityRate(int specificityRate) {
+        this.specificityRate = specificityRate;
+    }
 
     public abstract void process(T t);
 

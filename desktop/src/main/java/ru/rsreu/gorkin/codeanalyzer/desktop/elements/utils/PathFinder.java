@@ -102,7 +102,7 @@ public class PathFinder {
         JComponent barrier = null;
         while (true) {
 
-            if (targetDot.getX() - previousDot.getX() > 0) {
+            if (targetDot.getX() - previousDot.getX() >= 0) {
                 currentDot = new Point2D.Double(targetDot.getX() - GAP_X, previousDot.getY());
                 if (alternativeMode) {
                     currentDot = new Point2D.Double(barrier.getX() + barrier.getWidth() + GAP, previousDot.getY());

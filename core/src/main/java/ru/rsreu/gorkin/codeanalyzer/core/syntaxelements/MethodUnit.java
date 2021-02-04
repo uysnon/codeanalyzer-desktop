@@ -5,7 +5,7 @@ import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.method.IfStatementsMethodMetric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.method.SwitchStatementsMethodMetric;
 
-public class MethodUnit extends Unit {
+public class MethodUnit extends BlockUnit {
     private MethodDeclaration methodDeclaration;
 
 
@@ -24,8 +24,7 @@ public class MethodUnit extends Unit {
 
     @Override
     protected void addCustomUnitMetrics() {
-        addMetrics(new IfStatementsMethodMetric(),
-                new SwitchStatementsMethodMetric());
+
     }
 
     @Override

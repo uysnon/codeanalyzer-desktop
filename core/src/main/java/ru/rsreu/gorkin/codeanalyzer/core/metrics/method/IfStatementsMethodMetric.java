@@ -23,7 +23,7 @@ public class IfStatementsMethodMetric extends MethodMetric {
                 .orElse(null);
         int count = 0;
         if (blockStmt != null) {
-            count = new BlockStatementsCounter().calculateIfStatements(blockStmt);
+            count = new BlockStatementsCounter().calculateRecursiveIfStatements(blockStmt);
         }
         setCount(count);
     }
