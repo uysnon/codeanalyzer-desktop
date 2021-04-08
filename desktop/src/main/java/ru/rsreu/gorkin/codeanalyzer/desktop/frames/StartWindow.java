@@ -89,7 +89,6 @@ public class StartWindow {
         javaFilesTable = new JTable(javaFilesTableModel);
         javaFilesTable.setBackground(backgroundColorForBaseElements);
         javaFilesTable.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {

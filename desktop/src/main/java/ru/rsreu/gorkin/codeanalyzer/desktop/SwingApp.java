@@ -2,9 +2,9 @@ package ru.rsreu.gorkin.codeanalyzer.desktop;
 
 import ru.rsreu.gorkin.codeanalyzer.desktop.frames.StartWindow;
 
-public class App {
+public class SwingApp {
     public static void main(String[] args) {
-        App app = new App();
+        SwingApp app = new SwingApp();
         app.run();
     }
 

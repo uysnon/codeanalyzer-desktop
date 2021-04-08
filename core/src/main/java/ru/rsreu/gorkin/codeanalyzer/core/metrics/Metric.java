@@ -4,10 +4,26 @@ import com.github.javaparser.ast.Node;
 
 import java.util.Objects;
 
+/**
+ * Метрика программного кода
+ * @param <T> Тип анализируемой синтаксической единицы
+ */
 public abstract class Metric<T extends Node> {
+    /**
+     * Количественное значение метрики
+     */
     private int count;
+    /**
+     * Специфичность метрики
+     */
     private int specificityRate;
+    /**
+     * Название метрики
+     */
     private String title;
+    /**
+     * Описание метрики
+     */
     private String description;
 
     public Metric() {
@@ -46,6 +62,10 @@ public abstract class Metric<T extends Node> {
         this.specificityRate = specificityRate;
     }
 
+    /**
+     * Процесс вычисления метрики
+     * @param t параметр, на основе которого производятся вычисления
+     */
     public abstract void process(T t);
 
     @Override

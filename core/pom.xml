@@ -9,11 +9,23 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+
     <artifactId>core</artifactId>
     <packaging>jar</packaging>
 
 
+<!--    <reporting>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <sourcepath>src/main/java</sourcepath>-->
+<!--                </configuration>-->
 
-
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </reporting>-->
 
 </project>

@@ -3,9 +3,7 @@ package ru.rsreu.gorkin.codeanalyzer.desktop.frames;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.printer.PrettyPrinter;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.*;
-import ru.rsreu.gorkin.codeanalyzer.desktop.elements.files.fileutils.ExtensionUtils;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.panels.ClassDiagramPanel;
-import ru.rsreu.gorkin.codeanalyzer.desktop.elements.panels.FileDiagramPanel;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.table.NoneEditableTableModel;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.utils.MetricsBySpecificityComparator;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.utils.TextColorUtils;
@@ -53,14 +51,11 @@ public class ClassDialog {
     private JLabel label;
     private JScrollPane scrollPaneForDiagram;
     private JButton classNameButton;
-
     private JScrollPane scrollPaneForUnitText;
     private JTextArea unitText;
-
     private JTable metricsTable;
     private DefaultTableModel metricsTableModel;
     private JScrollPane scrollPaneForJavaMetricsTable;
-
     private List<JButton> classElementsButtons;
 
 
@@ -246,3 +241,5 @@ public class ClassDialog {
     }
 
 }
+
+

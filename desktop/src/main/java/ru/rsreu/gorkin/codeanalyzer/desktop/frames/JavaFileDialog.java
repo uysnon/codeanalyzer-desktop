@@ -59,7 +59,6 @@ public class JavaFileDialog {
 
     private void initDialogElements() {
         classes = new ArrayList<>();
-
         panel = new JPanel(new FlowLayout());
         panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         label = new JLabel(fileName);
@@ -134,7 +133,7 @@ public class JavaFileDialog {
         }
 
         int cols = classes.size() >= 2 ? 2 : 1;
-        GridLayout gridLayout = new GridLayout(0, cols, 40, 40);
+        GridLayout gridLayout = new GridLayout(0, 1, 10, 10);
 
         schemaPanel = new FileDiagramPanel(classes, gridLayout);
         schemaPanel.setBackground(Color.WHITE);

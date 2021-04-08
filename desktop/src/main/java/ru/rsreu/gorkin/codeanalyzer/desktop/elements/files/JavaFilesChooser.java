@@ -7,8 +7,9 @@ import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
 public class JavaFilesChooser extends JFileChooser {
+    private static final String basePath = "D:\\afterschool\\RSEU\\4 course\\8 sem\\управление программными проектами\\project\\science_competition";
     public JavaFilesChooser() {
-        super("D:\\afterschool\\RSEU\\4 course\\7 sem\\javaWeb\\labs\\labSupermarket\\maven-project\\");
+        super(basePath);
         setMultiSelectionEnabled(true);
         setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         setAcceptAllFileFilterUsed(false);

@@ -3,10 +3,12 @@ package ru.rsreu.gorkin.codeanalyzer.core.syntaxelements;
 import com.github.javaparser.ast.CompilationUnit;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SourceCodeUnit extends BlockUnit {
+    private String fileName;
     private CompilationUnit compilationUnit;
     private List<ClassOrInterfaceUnit> classOrInterfaceUnits;
     private List<EnumUnit> enumUnits;
@@ -16,6 +18,14 @@ public class SourceCodeUnit extends BlockUnit {
         classOrInterfaceUnits = new ArrayList<>();
         enumUnits = new ArrayList<>();
         addAllMetrics();
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public CompilationUnit getCompilationUnit() {
