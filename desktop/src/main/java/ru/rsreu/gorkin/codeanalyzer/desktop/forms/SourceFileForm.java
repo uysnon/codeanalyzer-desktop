@@ -4,7 +4,6 @@ import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.ClassOrInterfaceUnit;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.EnumUnit;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.panels.DiagramPanel;
-import ru.rsreu.gorkin.codeanalyzer.desktop.elements.panels.FileDiagramPanel;
 import ru.rsreu.gorkin.codeanalyzer.desktop.elements.utils.TextColorUtils;
 import ru.rsreu.gorkin.codeanalyzer.desktop.frames.ClassDialog;
 
@@ -12,69 +11,36 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Consumer;
 
-public class SourceFileForm extends UnitForm {
-    public static final Color FILE_COLOR = new Color(25, 114, 120);
-    public static final Color CLASS_COLOR = new Color(196, 69, 54);
-    public static final Color INTERFACE_COLOR = new Color(119, 46, 37);
-    public static final Color ENUM_COLOR = new Color(119, 46, 37);
-    public static final String HEX_LIGHT_COLOR = "EDDDD4";
+public class SourceFileForm extends UnitGUIForm {
     private static final String ENUM_TITLE = "enum";
     private static final String CLASS_TITLE = "class";
     private static final String INTERFACE_TITLE = "interface";
 
-    private JPanel parentPanel;
-    private JTabbedPane sourceCodePanel;
-    private JButton exportDiagramButton;
-    private JPanel diagramPanel;
-    private JPanel metricsPanel;
-    private JPanel programTextPanel;
-    private JTable metricsTable;
-    private JTextArea unitTextArea;
-    private JButton exportMetricsButton;
-    private JLabel unitLabel;
-    private JScrollPane diagramScrollPane;
-    private JPanel diagramParentPanel;
-
-    private List<JButton> units;
     private SourceCodeUnit sourceCodeUnit;
-
+    private Consumer<ClassOrInterfaceUnit> openClassFormConsumer;
 
     public SourceFileForm(SourceCodeUnit sourceCodeUnit) {
-        this.sourceCodeUnit  = sourceCodeUnit;
-        this.units = new ArrayList<>();
+        this.sourceCodeUnit = sourceCodeUnit;
         createUIComponents();
     }
 
-    public JPanel getParentPanel() {
-        return parentPanel;
+    public void setOpenClassFormConsumer(Consumer<ClassOrInterfaceUnit> openClassFormConsumer) {
+        this.openClassFormConsumer = openClassFormConsumer;
     }
 
     @Override
-    protected JTextArea getUnitTextArea() {
-        return unitTextArea;
-    }
-
-    @Override
-    protected JTable getMetricsTable() {
-        return metricsTable;
-    }
-
-    @Override
-    protected JLabel getUnitLabel() {
-        return unitLabel;
-    }
-
-    private void createUIComponents() {
+    protected void createUIComponents() {
         init();
         updateMetricsTable(sourceCodeUnit);
         updateTextArea(sourceCodeUnit.getCompilationUnit());
         initDiagramPanel();
+        updateLabel(sourceCodeUnit.getFileName());
     }
 
-    private void initDiagramPanel() {
+    @Override
+    protected void initDiagramPanel() {
         for (ClassOrInterfaceUnit unit : sourceCodeUnit.getClassOrInterfaceUnits()) {
             JButton button = null;
             String name = unit.getClassOrInterfaceDeclaration().getNameAsString();
@@ -98,7 +64,7 @@ public class SourceFileForm extends UnitForm {
             }
             button.addMouseListener(
                     new MouseAdapter() {
-                        String title = unit.getClassOrInterfaceDeclaration().toString();
+                        String title = unit.getClassOrInterfaceDeclaration().getName().toString();
 
                         @Override
                         public void mousePressed(MouseEvent e) {
@@ -106,11 +72,7 @@ public class SourceFileForm extends UnitForm {
                                 onOnceClickListener(unit, title, unit.getClassOrInterfaceDeclaration());
                             } else {
                                 if (e.getClickCount() == 2) {
-                                    ClassDialog classDialog = new ClassDialog(
-                                            name,
-                                            unit,
-                                            null);
-                                    classDialog.show();
+                                    openClassFormConsumer.accept(unit);
                                 }
                             }
                         }
@@ -133,19 +95,27 @@ public class SourceFileForm extends UnitForm {
         }
 
         int cols = units.size() >= 2 ? 2 : 1;
-        GridLayout gridLayout = new GridLayout(5, 3, 5, 5);
+        GridLayout gridLayout = new GridLayout(0, cols, 5, 5);
 
-        sourceCodeUnit.getFileName();
-        Button sourceCodeUnitButton = new Button(sourceCodeUnit.getFileName());
+
+        JButton sourceCodeUnitButton = new JButton(sourceCodeUnit.getFileName());
+        sourceCodeUnitButton.addMouseListener(
+                new MouseAdapter() {
+                    String title = sourceCodeUnit.getFileName();
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (e.getClickCount() >= 1) {
+                            onOnceClickListener(sourceCodeUnit, title, sourceCodeUnit.getCompilationUnit());
+                        }
+                    }
+                }
+        );
         diagramPanel = new DiagramPanel(units, gridLayout, sourceCodeUnitButton);
 
         diagramPanel.add(sourceCodeUnitButton);
         units.forEach(diagramPanel::add);
 
         diagramParentPanel.add(diagramPanel);
-
-
     }
-
-
 }

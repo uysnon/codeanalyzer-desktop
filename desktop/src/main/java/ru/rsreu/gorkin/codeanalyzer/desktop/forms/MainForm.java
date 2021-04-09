@@ -1,5 +1,7 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop.forms;
 
+import ru.rsreu.gorkin.codeanalyzer.desktop.elements.buttons.PlainJButton;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.function.Supplier;
@@ -28,13 +30,13 @@ public class MainForm {
         this.parentPanel = parentPanel;
     }
 
-    public void addCloseableTab(String title, Component component) {
-        tabbedPane.addTab(title, component);
+    public void addCloseableTab(String title, Component component, String description) {
+        tabbedPane.addTab(title, null, component, description);
         int index = tabbedPane.indexOfTab(title);
         JPanel pnlTab = new JPanel(new GridBagLayout());
         pnlTab.setOpaque(false);
         JLabel lblTitle = new JLabel(title);
-        JButton btnClose = new JButton("x");
+        JButton btnClose = new PlainJButton("  x");
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -42,7 +44,7 @@ public class MainForm {
         gbc.weightx = 1;
 
         pnlTab.add(lblTitle, gbc);
-
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridx++;
         gbc.weightx = 0;
         pnlTab.add(btnClose, gbc);
@@ -52,14 +54,20 @@ public class MainForm {
         btnClose.addActionListener(evt -> {
             int listnerIndex = tabbedPane.indexOfTab(title);
             if (listnerIndex >= 0) {
-                tabbedPane.removeTabAt(index);
+                tabbedPane.removeTabAt(listnerIndex);
             }
         });
 
     }
 
-    public void addNoneCloseableTab(String title, Component component) {
-        tabbedPane.addTab(title, component);
+    public void addNoneCloseableTab(String title, Component component, String description) {
+        tabbedPane.addTab(title, null, component, description);
+    }
+
+
+    public void setActive(String title){
+        int listnerIndex = tabbedPane.indexOfTab(title);
+        tabbedPane.setSelectedIndex(listnerIndex);
     }
 
     private void initWindow() {

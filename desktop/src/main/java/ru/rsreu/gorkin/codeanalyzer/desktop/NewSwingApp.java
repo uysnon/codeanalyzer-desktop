@@ -1,10 +1,7 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop;
 
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
-import ru.rsreu.gorkin.codeanalyzer.desktop.forms.MainForm;
-import ru.rsreu.gorkin.codeanalyzer.desktop.forms.ProjectForm;
-import ru.rsreu.gorkin.codeanalyzer.desktop.forms.ScanByRulesForm;
-import ru.rsreu.gorkin.codeanalyzer.desktop.forms.SourceFileForm;
+import ru.rsreu.gorkin.codeanalyzer.desktop.forms.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +11,7 @@ import java.util.Map;
 public class NewSwingApp {
     private static final int WINDOW_HEIGHT = 540;
     private static final int WINDOW_WIDTH = 900;
+    private static final int MAX_FILE_TAB_NAME_LENGTH = 20;
     private Map<File, SourceCodeUnit> fileSourceCodeUnitMap;
 
     private MainForm mainForm;
@@ -28,11 +26,22 @@ public class NewSwingApp {
         projectForm.setClickSourceCodeUnitConsumer(unit ->
         {
             SourceFileForm form = new SourceFileForm(unit);
-            mainForm.addCloseableTab("Файл", form.getParentPanel());
+            form.setOpenClassFormConsumer(classUnit -> {
+                ClassForm classForm = new ClassForm(classUnit);
+                String fullName = classUnit.getClassOrInterfaceDeclaration().getNameAsString();
+                String title = getTabFileName(fullName);
+                mainForm.addCloseableTab(title, classForm.getParentPanel(), fullName);
+                mainForm.setActive(title);
+            });
+            String fullName = unit.getFileName();
+            String title = getTabFileName(fullName);
+            mainForm.addCloseableTab(title, form.getParentPanel(), fullName);
+            mainForm.setActive(title);
+
         });
         scanByRulesForm = new ScanByRulesForm();
-        mainForm.addNoneCloseableTab("Проект", projectForm.getParentPanel());
-        mainForm.addNoneCloseableTab("Проверка", scanByRulesForm.getParentPanel());
+        mainForm.addNoneCloseableTab("Проект", projectForm.getParentPanel(), "Проект");
+        mainForm.addNoneCloseableTab("Проверка", scanByRulesForm.getParentPanel(), "Проверка");
     }
 
     public static void main(String[] args) {
@@ -47,6 +56,16 @@ public class NewSwingApp {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private String getTabFileName(String fullFileName) {
+        if (fullFileName.length() <= MAX_FILE_TAB_NAME_LENGTH) {
+            return fullFileName;
+        } else {
+            return fullFileName.substring(0, MAX_FILE_TAB_NAME_LENGTH / 2 - 1 - 1)
+                    + ".."
+                    + fullFileName.substring(fullFileName.length() - MAX_FILE_TAB_NAME_LENGTH / 2 + 1);
+        }
     }
 
 
