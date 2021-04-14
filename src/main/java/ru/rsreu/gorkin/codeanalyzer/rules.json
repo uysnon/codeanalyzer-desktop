@@ -1,0 +1,13 @@
+{
+  "type": {
+    "title": "naming",
+    "scope": [
+      "local_field"
+    ]
+  },
+  "value": "^m_(.*)$",
+  "importance": 2
+}
+
+
+

@@ -12,7 +12,9 @@ public abstract class BlockUnit extends Unit {
                 new ForStatementsMetric(),
                 new ForEachStatementsMetric(),
                 new WhileStatementsMetric(),
-                new DoWhileStatementsMetric()
+                new DoWhileStatementsMetric(),
+                new ABCMetric(),
+                new RABCMetric()
         );
     }
 }

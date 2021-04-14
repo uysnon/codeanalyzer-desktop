@@ -1,7 +1,7 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop;
 
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
-import ru.rsreu.gorkin.codeanalyzer.desktop.forms.*;
+import ru.rsreu.gorkin.codeanalyzer.desktop.ui.forms.*;
 
 import javax.swing.*;
 import java.awt.*;
