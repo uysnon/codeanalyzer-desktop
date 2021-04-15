@@ -57,6 +57,9 @@ public class ProjectForm {
         return parentPanel;
     }
 
+    public List<SourceCodeUnit> getSourceCodeUnits(){
+        return new ArrayList<>(fileSourceCodeUnitMap.values());
+    }
 
     private void initDataStructures() {
         selectedFilesAndDirectories = new ArrayList<>();

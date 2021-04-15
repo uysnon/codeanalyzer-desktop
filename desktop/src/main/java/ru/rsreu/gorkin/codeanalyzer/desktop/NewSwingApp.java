@@ -6,7 +6,9 @@ import ru.rsreu.gorkin.codeanalyzer.desktop.ui.forms.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class NewSwingApp {
     private static final int WINDOW_HEIGHT = 540;
@@ -17,12 +19,13 @@ public class NewSwingApp {
     private MainForm mainForm;
     private ProjectForm projectForm;
     private ScanByRulesForm scanByRulesForm;
+    private Supplier<List<SourceCodeUnit>> projectStructureSupplier;
 
     public NewSwingApp() {
         mainForm = new MainForm();
         projectForm = new ProjectForm();
         projectForm.setProjectStructureConsumer(map -> fileSourceCodeUnitMap = map);
-
+        projectStructureSupplier = () -> projectForm.getSourceCodeUnits();
         projectForm.setClickSourceCodeUnitConsumer(unit ->
         {
             SourceFileForm form = new SourceFileForm(unit);
@@ -40,6 +43,7 @@ public class NewSwingApp {
 
         });
         scanByRulesForm = new ScanByRulesForm();
+        scanByRulesForm.setProjectStructureSupplier(projectStructureSupplier);
         mainForm.addNoneCloseableTab("Проект", projectForm.getParentPanel(), "Проект");
         mainForm.addNoneCloseableTab("Проверка", scanByRulesForm.getParentPanel(), "Проверка");
     }

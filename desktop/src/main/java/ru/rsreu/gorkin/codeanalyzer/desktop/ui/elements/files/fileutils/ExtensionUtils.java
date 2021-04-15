@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 public class ExtensionUtils {
     public static final String JAVA_FILES = "java";
+    public static final String JSON_FILES = "json";
 
     /*
      * Get the extension of a file.
@@ -31,6 +32,14 @@ public class ExtensionUtils {
         String extension = getExtension(path);
         if (extension != null) {
             return extension.equals(ExtensionUtils.JAVA_FILES);
+        }
+        return false;
+    }
+
+    public static boolean isJsonFile(File f){
+        String extension = getExtension(f);
+        if (extension != null) {
+            return extension.equals(ExtensionUtils.JSON_FILES);
         }
         return false;
     }

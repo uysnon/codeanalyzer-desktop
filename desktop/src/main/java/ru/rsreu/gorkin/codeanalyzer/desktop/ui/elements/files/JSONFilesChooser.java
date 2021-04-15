@@ -6,27 +6,26 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-public class JavaFilesChooser extends JFileChooser {
-    private static final String basePath = "D:\\afterschool\\RSEU\\4 course\\8 sem\\управление программными проектами\\project\\science_competition";
-    public JavaFilesChooser() {
+public class JSONFilesChooser extends JFileChooser {
+    private static final String basePath = "D:\\afterschool\\RSEU\\4 course\\VKR\\project\\core\\codestatistics\\src\\main\\java\\ru\\rsreu\\gorkin\\codeanalyzer";
+
+    public JSONFilesChooser() {
         super(basePath);
         setMultiSelectionEnabled(true);
-        setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        setFileSelectionMode(JFileChooser.FILES_ONLY);
         setAcceptAllFileFilterUsed(false);
         setFileFilter(new FileFilter() {
             @Override
             public boolean accept(File f) {
-                if (f.isDirectory()) {
-                    return true;
-                }
-                return ExtensionUtils.isJavaFile(f);
+                return ExtensionUtils.isJsonFile(f);
             }
 
             @Override
             public String getDescription() {
-                return "Java files/directories";
+                return "Json files";
             }
         });
     }
+
 
 }
