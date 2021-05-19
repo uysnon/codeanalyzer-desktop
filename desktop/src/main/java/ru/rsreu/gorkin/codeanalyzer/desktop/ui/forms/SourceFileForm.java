@@ -23,6 +23,7 @@ public class SourceFileForm extends UnitGUIForm {
     public SourceFileForm(SourceCodeUnit sourceCodeUnit) {
         this.sourceCodeUnit = sourceCodeUnit;
         createUIComponents();
+        setCurrentUnit(sourceCodeUnit);
     }
 
     public void setOpenClassFormConsumer(Consumer<ClassOrInterfaceUnit> openClassFormConsumer) {

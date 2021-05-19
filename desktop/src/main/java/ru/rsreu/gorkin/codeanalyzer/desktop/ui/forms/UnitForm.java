@@ -28,6 +28,15 @@ public abstract class UnitForm {
     private JLabel label;
     private DefaultTableModel metricsTableModel;
     private PrettyPrinter prettyPrinter;
+    private Unit currentUnit;
+
+    public Unit getCurrentUnit() {
+        return currentUnit;
+    }
+
+    public void setCurrentUnit(Unit currentUnit) {
+        this.currentUnit = currentUnit;
+    }
 
     public UnitForm() {
         this.prettyPrinter = new PrettyPrinter();
@@ -55,6 +64,7 @@ public abstract class UnitForm {
 
 
     protected void onOnceClickListener(Unit unit, String labelTitle, Node node) {
+        this.currentUnit = unit;
         updateMetricsTable(unit);
         updateLabel(labelTitle);
         updateTextArea(node);

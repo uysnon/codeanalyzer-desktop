@@ -1,5 +1,6 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
 import ru.rsreu.gorkin.codeanalyzer.desktop.ui.forms.*;
 
@@ -49,8 +50,10 @@ public class NewSwingApp {
     }
 
     public static void main(String[] args) {
+        FlatIntelliJLaf.install();
         NewSwingApp newSwingApp = new NewSwingApp();
         newSwingApp.run();
+
     }
 
     public void run() {

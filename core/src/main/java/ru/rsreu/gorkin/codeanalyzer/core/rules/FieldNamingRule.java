@@ -1,5 +1,6 @@
 package ru.rsreu.gorkin.codeanalyzer.core.rules;
 
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.FieldUnit;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FieldNamingRule implements Rule {
+    private static final String LINE = "----------------------------------------------";
     private List<FieldUnit> fieldUnits;
     private String namingPattern;
 
@@ -48,38 +50,59 @@ public class FieldNamingRule implements Rule {
 
     @Override
     public ValidationResult validate() {
-        String resultDescription = "";
+        StringBuilder resultDescriptionBuilder = new StringBuilder();
+        resultDescriptionBuilder
+                .append(LINE)
+                .append("\n")
+                .append("Проверка правильности именования полей: ")
+                .append(namingPattern)
+                .append("\n");
         boolean resultValue = true;
         for (FieldUnit unit : fieldUnits) {
             if (!unit.isStatic()) {
-                List<String> variableNames = unit.getFieldDeclaration()
+                List<VariableNameWithLocation> variableNames = unit.getFieldDeclaration()
                         .getVariables()
                         .stream()
-                        .map(NodeWithSimpleName::getNameAsString)
+                        .map(VariableNameWithLocation::of)
                         .collect(Collectors.toList());
-                for (String variableName : variableNames) {
+                for (VariableNameWithLocation variableName : variableNames) {
                     ValidationResult iterationResult = validate(variableName);
                     if (!iterationResult.isNormal()) {
                         if (resultValue) {
                             resultValue = false;
                         }
-                        resultDescription += iterationResult.getDescription() + "\n";
+                        resultDescriptionBuilder
+                                .append(iterationResult.getDescription())
+                                .append("\n");
                     }
                 }
             }
         }
-        if (resultDescription == "") {
-            resultDescription = "OK";
+        resultDescriptionBuilder.append("Результат проверки: ");
+        if (resultValue) {
+            resultDescriptionBuilder.append("пройдено успешно");
+        } else {
+            resultDescriptionBuilder.append("выявлены ошибки");
         }
-        return new ValidationResult(resultValue, resultDescription);
+        resultDescriptionBuilder
+                .append("\n")
+                .append(LINE);
+
+        return new ValidationResult(resultValue, resultDescriptionBuilder.toString());
     }
 
-    private ValidationResult validate(String fieldName) {
+    private ValidationResult validate(VariableNameWithLocation fieldName) {
         ValidationResult result = null;
-        if (fieldName.matches(namingPattern)) {
-            result = new ValidationResult(true, String.format("OK - %s", fieldName));
+        if (fieldName.getName().matches(namingPattern)) {
+            result = new ValidationResult(true, String.format(
+                    "OK - %s : %s",
+                    fieldName.getName(),
+                    fieldName.getLocation()));
         } else {
-            result = new ValidationResult(false, String.format("ERROR - %s", fieldName));
+            result = new ValidationResult(false, String.format(
+                    "ERROR - %s : %s",
+                    fieldName.getName(),
+                    fieldName.getLocation()));
         }
         return result;
     }

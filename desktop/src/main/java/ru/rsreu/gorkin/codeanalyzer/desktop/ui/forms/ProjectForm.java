@@ -1,8 +1,10 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop.ui.forms;
 
+import org.apache.commons.io.FilenameUtils;
 import ru.rsreu.gorkin.codeanalyzer.core.adapters.TreeCreator;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.syntaxelements.SourceCodeUnit;
+import ru.rsreu.gorkin.codeanalyzer.desktop.excel.export.ExcelExporter;
 import ru.rsreu.gorkin.codeanalyzer.desktop.metrics.SourceFileMetrics;
 import ru.rsreu.gorkin.codeanalyzer.desktop.ui.elements.files.JavaFilesChooser;
 import ru.rsreu.gorkin.codeanalyzer.desktop.ui.elements.files.fileutils.ExtensionUtils;
@@ -11,11 +13,14 @@ import ru.rsreu.gorkin.codeanalyzer.desktop.ui.elements.table.NoneEditableTableM
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 import java.util.function.Consumer;
@@ -25,6 +30,7 @@ public class ProjectForm {
     private JButton selectProgramProjectButton;
     private JTable projectMetricsTable;
     private JPanel parentPanel;
+    private JButton exportMetricsButton;
 
     private List<File> selectedFilesAndDirectories;
 
@@ -42,6 +48,12 @@ public class ProjectForm {
         fileSourceCodeUnitMap = new HashMap<>();
         initDataStructures();
         initFormElements();
+        exportMetricsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exportMetrics();
+            }
+        });
     }
 
 
@@ -57,7 +69,7 @@ public class ProjectForm {
         return parentPanel;
     }
 
-    public List<SourceCodeUnit> getSourceCodeUnits(){
+    public List<SourceCodeUnit> getSourceCodeUnits() {
         return new ArrayList<>(fileSourceCodeUnitMap.values());
     }
 
@@ -136,17 +148,45 @@ public class ProjectForm {
                             .sorted(Comparator.comparing(SourceFileMetrics::getShortName))
                             .collect(Collectors.toList());
                     List<String> tableRow = new ArrayList<>();
-                    tableRow.add(  ExtensionUtils.getFileNameFrom(file.toString()));
-                    metrics.forEach(metric->tableRow.add(String.valueOf(metric.getCount())));
+                    tableRow.add(ExtensionUtils.getFileNameFrom(file.toString()));
+                    metrics.forEach(metric -> tableRow.add(String.valueOf(metric.getCount())));
                     projectMetricsTableModel.addRow(tableRow.toArray());
                 });
 
         int a = 1;
     }
 
-
     private void createUIComponents() {
         initDataStructures();
         initFormElements();
+    }
+
+    private void exportMetrics() {
+        JFileChooser fileChooser = new JFileChooser();
+        String currentPath = Paths.get("").toAbsolutePath().toString();
+        fileChooser.setCurrentDirectory(new File(currentPath));
+        int retrival = fileChooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                ExcelExporter excelExporter = new ExcelExporter();
+                excelExporter.export(
+                        getFileNamesWithMetrics(),
+                        new File(fileChooser.getSelectedFile().getAbsoluteFile().toString() + ".xls"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private Map<String, List<Metric>> getFileNamesWithMetrics() {
+        Map<String, List<Metric>> fileNamesWithMetrics = new HashMap<>();
+        Set<File> files = fileSourceCodeUnitMap.keySet();
+        for (File file : files) {
+            String fileName = FilenameUtils.getName(file.getAbsolutePath().toString());
+            SourceCodeUnit sourceCodeUnit = fileSourceCodeUnitMap.get(file);
+            List<Metric> metrics = sourceCodeUnit.getMetrics();
+            fileNamesWithMetrics.put(fileName, metrics);
+        }
+        return fileNamesWithMetrics;
     }
 }

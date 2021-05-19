@@ -1,7 +1,14 @@
 package ru.rsreu.gorkin.codeanalyzer.desktop.ui.forms;
 
+import ru.rsreu.gorkin.codeanalyzer.desktop.excel.export.ExcelExporter;
+import ru.rsreu.gorkin.codeanalyzer.desktop.screenshots.Screenshotmaker;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +35,20 @@ public abstract class UnitGUIForm extends UnitForm {
 
     protected List<JButton> units;
 
-
     public UnitGUIForm() {
         this.units = new ArrayList<>();
+        exportDiagramButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                makeScreenshotAction();
+            }
+        });
+        exportMetricsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exportMetrics();
+            }
+        });
     }
 
 
@@ -57,5 +75,37 @@ public abstract class UnitGUIForm extends UnitForm {
 
     protected abstract void initDiagramPanel();
 
+    private void makeScreenshotAction() {
+        JFileChooser fileChooser = new JFileChooser();
+        String currentPath = Paths.get("").toAbsolutePath().toString();
+        fileChooser.setCurrentDirectory(new File(currentPath));
+        int retrival = fileChooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                Screenshotmaker screenshotMaker = new Screenshotmaker();
+                screenshotMaker.makeScreenshot(
+                        diagramPanel,
+                        new File(fileChooser.getSelectedFile().getAbsoluteFile().toString() + ".png"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
+    private void exportMetrics() {
+        JFileChooser fileChooser = new JFileChooser();
+        String currentPath = Paths.get("").toAbsolutePath().toString();
+        fileChooser.setCurrentDirectory(new File(currentPath));
+        int retrival = fileChooser.showSaveDialog(null);
+        if (retrival == JFileChooser.APPROVE_OPTION) {
+            try {
+                ExcelExporter excelExporter = new ExcelExporter();
+                excelExporter.export(
+                        getCurrentUnit().getMetrics(),
+                        new File(fileChooser.getSelectedFile().getAbsoluteFile().toString() + ".xls"));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }

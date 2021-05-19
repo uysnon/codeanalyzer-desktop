@@ -22,6 +22,7 @@ public class ClassForm extends UnitGUIForm {
     public ClassForm(ClassOrInterfaceUnit classUnit) {
         this.classUnit = classUnit;
         createUIComponents();
+        setCurrentUnit(classUnit);
     }
 
     @Override
