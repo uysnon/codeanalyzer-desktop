@@ -16,7 +16,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>ru.rsreu.gorkin.codeanalyzer.desktop.SwingApp</mainClass>
+                <mainClass>ru.rsreu.gorkin.codeanalyzer.desktop.App</mainClass>
               </manifest>
             </archive>
           </configuration>

@@ -68,13 +68,11 @@ public class ClassOrInterfaceUnit extends BlockUnit {
 
     @Override
     public void calculateMetrics() {
-        for (Metric metric : getMetrics()) {
-            metric.process(classOrInterfaceDeclaration);
-        }
+        getMetrics().forEach(metric -> metric.process(classOrInterfaceDeclaration));
+        constructorUnits.forEach(ConstructorUnit::calculateMetrics);
         methodUnits.forEach(MethodUnit::calculateMetrics);
-        initializerDeclarationUnits.forEach(
-                InitializerDeclarationUnit::calculateMetrics
-        );
+        fieldUnits.forEach(FieldUnit::calculateMetrics);
+        initializerDeclarationUnits.forEach(InitializerDeclarationUnit::calculateMetrics);
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class NewSwingApp {
+public class App {
     private static final int WINDOW_HEIGHT = 540;
     private static final int WINDOW_WIDTH = 900;
     private static final int MAX_FILE_TAB_NAME_LENGTH = 20;
@@ -22,7 +22,7 @@ public class NewSwingApp {
     private ScanByRulesForm scanByRulesForm;
     private Supplier<List<SourceCodeUnit>> projectStructureSupplier;
 
-    public NewSwingApp() {
+    public App() {
         mainForm = new MainForm();
         projectForm = new ProjectForm();
         projectForm.setProjectStructureConsumer(map -> fileSourceCodeUnitMap = map);
@@ -51,8 +51,8 @@ public class NewSwingApp {
 
     public static void main(String[] args) {
         FlatIntelliJLaf.install();
-        NewSwingApp newSwingApp = new NewSwingApp();
-        newSwingApp.run();
+        App app = new App();
+        app.run();
 
     }
 
