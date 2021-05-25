@@ -63,7 +63,7 @@ public class ExcelExporter {
             }
         }
         try (
-                FileOutputStream fileOut = new FileOutputStream(fileToSave)
+                FileOutputStream fileOut = new FileOutputStream(fileToSave);
         ) {
             workbook.write(fileOut);
             fileOut.close();

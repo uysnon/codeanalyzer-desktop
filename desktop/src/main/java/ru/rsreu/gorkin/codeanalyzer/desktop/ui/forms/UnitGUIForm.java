@@ -3,7 +3,7 @@ package ru.rsreu.gorkin.codeanalyzer.desktop.ui.forms;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import ru.rsreu.gorkin.codeanalyzer.desktop.excel.export.ExcelExporter;
-import ru.rsreu.gorkin.codeanalyzer.desktop.screenshots.Screenshotmaker;
+import ru.rsreu.gorkin.codeanalyzer.desktop.screenshots.ScreenshotMaker;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -87,7 +87,7 @@ public abstract class UnitGUIForm extends UnitForm {
         int retrival = fileChooser.showSaveDialog(null);
         if (retrival == JFileChooser.APPROVE_OPTION) {
             try {
-                Screenshotmaker screenshotMaker = new Screenshotmaker();
+                ScreenshotMaker screenshotMaker = new ScreenshotMaker();
                 screenshotMaker.makeScreenshot(
                         diagramPanel,
                         new File(fileChooser.getSelectedFile().getAbsoluteFile().toString() + ".png"));

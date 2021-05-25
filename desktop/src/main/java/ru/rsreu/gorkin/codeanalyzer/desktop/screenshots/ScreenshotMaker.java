@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-public class Screenshotmaker {
+public class ScreenshotMaker {
     public void makeScreenshot(Component comp, File file) {
         if (comp.isVisible()) {
             try {

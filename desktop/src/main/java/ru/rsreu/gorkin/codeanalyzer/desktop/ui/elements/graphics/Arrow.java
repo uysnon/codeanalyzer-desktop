@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
-public enum Arrow {;
+public class Arrow {;
 
     public static void draw (final Graphics2D gfx,
                              final Point2D start,

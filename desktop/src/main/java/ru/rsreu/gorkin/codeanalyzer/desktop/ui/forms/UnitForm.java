@@ -23,12 +23,12 @@ public abstract class UnitForm {
     public static final String METHOD_TITLE = "method";
     public static final String CONSTRUCTOR_TITLE = "constructor";
 
-    private JTextArea unitText;
-    private JTable metricsTable;
-    private JLabel label;
-    private DefaultTableModel metricsTableModel;
-    private PrettyPrinter prettyPrinter;
-    private Unit currentUnit;
+        private JTextArea unitText;
+        private JTable metricsTable;
+        private JLabel label;
+        private DefaultTableModel metricsTableModel;
+        private PrettyPrinter prettyPrinter;
+        private Unit currentUnit;
 
     public Unit getCurrentUnit() {
         return currentUnit;
