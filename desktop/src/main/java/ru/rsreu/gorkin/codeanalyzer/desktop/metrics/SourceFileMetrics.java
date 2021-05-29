@@ -49,13 +49,13 @@ public enum SourceFileMetrics {
     ABC("ABC") {
         @Override
         public boolean isMe(Metric metric) {
-            return metric instanceof ABCMetric;
+            return metric.getClass() == ABCMetric.class;
         }
     },
     RABC("RABC") {
         @Override
         public boolean isMe(Metric metric) {
-            return metric instanceof RABCMetric;
+            return metric.getClass() == RABCMetric.class;
         }
     };
 

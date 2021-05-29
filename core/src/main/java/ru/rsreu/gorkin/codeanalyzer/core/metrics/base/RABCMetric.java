@@ -15,6 +15,6 @@ public class RABCMetric extends ABCMetric {
     public void process(Node node) {
         CodeLinesMetric codeLinesMetric = new CodeLinesMetric();
         codeLinesMetric.process(node);
-        setCount((int) (Math.round(getABCValue(node) / codeLinesMetric.getCount()) * 100));
+        setCount((int) Math.round((getABCValue(node) / codeLinesMetric.getCount()) * 100));
     }
 }
