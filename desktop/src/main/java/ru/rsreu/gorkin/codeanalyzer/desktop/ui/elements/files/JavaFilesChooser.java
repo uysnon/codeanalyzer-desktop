@@ -5,9 +5,10 @@ import ru.rsreu.gorkin.codeanalyzer.desktop.ui.elements.files.fileutils.Extensio
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
+import java.nio.file.Paths;
 
 public class JavaFilesChooser extends JFileChooser {
-    private static final String basePath = "D:\\afterschool\\RSEU\\4 course\\8 sem\\управление программными проектами\\project\\science_competition";
+    private static final String basePath = Paths.get("").toAbsolutePath().toString();
     public JavaFilesChooser() {
         super(basePath);
         setMultiSelectionEnabled(true);

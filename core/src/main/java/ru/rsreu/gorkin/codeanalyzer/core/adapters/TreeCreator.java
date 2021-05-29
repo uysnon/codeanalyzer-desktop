@@ -40,7 +40,6 @@ public class TreeCreator {
      */
     public SourceCodeUnit createSourceCodeUnit(CompilationUnit compilationUnit) {
         SourceCodeUnit codeUnit = new SourceCodeUnit(compilationUnit);
-        codeUnit.calculateMetrics();
         List<ClassOrInterfaceUnit> classes = compilationUnit.getTypes().stream()
                 .filter(node -> node instanceof ClassOrInterfaceDeclaration)
                 .map(node -> new ClassOrInterfaceUnit((ClassOrInterfaceDeclaration) node))

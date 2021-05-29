@@ -4,7 +4,7 @@ import ru.rsreu.gorkin.codeanalyzer.core.metrics.Metric;
 import ru.rsreu.gorkin.codeanalyzer.core.metrics.base.*;
 
 public enum SourceFileMetrics {
-    CODE_LINES_METRIC("CL") {
+    CODE_LINES_METRIC("LOC") {
         @Override
         public boolean isMe(Metric metric) {
             return metric instanceof CodeLinesMetric;
@@ -56,6 +56,12 @@ public enum SourceFileMetrics {
         @Override
         public boolean isMe(Metric metric) {
             return metric.getClass() == RABCMetric.class;
+        }
+    },
+    CC("CC") {
+        @Override
+        public boolean isMe(Metric metric) {
+            return metric.getClass() == CyclomaticComplexityMetric.class;
         }
     };
 

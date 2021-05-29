@@ -14,7 +14,8 @@ import ru.rsreu.gorkin.codeanalyzer.core.metrics.base.*;
                     new WhileStatementsMetric(),
                     new DoWhileStatementsMetric(),
                     new ABCMetric(),
-                    new RABCMetric()
+                    new RABCMetric(),
+                    new CyclomaticComplexityMetric()
             );
         }
     }
