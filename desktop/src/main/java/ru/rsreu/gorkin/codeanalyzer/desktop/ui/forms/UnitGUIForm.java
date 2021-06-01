@@ -105,7 +105,7 @@ public abstract class UnitGUIForm extends UnitForm {
         if (retrival == JFileChooser.APPROVE_OPTION) {
             try {
                 ExcelExporter excelExporter = new ExcelExporter();
-                excelExporter.export(
+                excelExporter.exportSourceFileMetrics(
                         getCurrentUnit().getMetrics(),
                         new File(fileChooser.getSelectedFile().getAbsoluteFile().toString() + ".xls"));
             } catch (Exception ex) {
@@ -153,8 +153,11 @@ public abstract class UnitGUIForm extends UnitForm {
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel2.add(panel3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         unitLabel = new JLabel();
+        unitLabel.setEnabled(false);
+        Font unitLabelFont = this.$$$getFont$$$(null, Font.BOLD, -1, unitLabel.getFont());
+        if (unitLabelFont != null) unitLabel.setFont(unitLabelFont);
         unitLabel.setText("Label");
-        panel3.add(unitLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel3.add(unitLabel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel4 = new JPanel();
         panel4.setLayout(new BorderLayout(0, 0));
         panel2.add(panel4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -212,4 +215,5 @@ public abstract class UnitGUIForm extends UnitForm {
     public JComponent $$$getRootComponent$$$() {
         return parentPanel;
     }
+
 }

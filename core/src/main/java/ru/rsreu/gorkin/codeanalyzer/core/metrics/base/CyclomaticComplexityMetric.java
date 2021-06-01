@@ -1,14 +1,9 @@
 package ru.rsreu.gorkin.codeanalyzer.core.metrics.base;
 
-import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.expr.BinaryExpr;
 import com.github.javaparser.ast.expr.ConditionalExpr;
-import com.github.javaparser.ast.stmt.CatchClause;
-import com.github.javaparser.ast.stmt.ForEachStmt;
-import com.github.javaparser.ast.stmt.ForStmt;
-import com.github.javaparser.ast.stmt.WhileStmt;
+import com.github.javaparser.ast.stmt.*;
 
 public class CyclomaticComplexityMetric extends BlockMetric {
     private static final String TITLE = "Циломатическая сложность";
@@ -40,6 +35,7 @@ public class CyclomaticComplexityMetric extends BlockMetric {
                 node instanceof ConditionalExpr
                         || node instanceof CatchClause
                         || node instanceof WhileStmt
+                        || node instanceof DoStmt
                         || node instanceof ForEachStmt
                         || node instanceof ForStmt
                         || (node instanceof BinaryExpr

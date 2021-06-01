@@ -174,7 +174,7 @@ public class ProjectForm {
         if (retrival == JFileChooser.APPROVE_OPTION) {
             try {
                 ExcelExporter excelExporter = new ExcelExporter();
-                excelExporter.export(
+                excelExporter.exportSourceFileMetrics(
                         getFileNamesWithMetrics(),
                         new File(fileChooser.getSelectedFile().getAbsoluteFile().toString() + ".xls"));
             } catch (Exception ex) {
