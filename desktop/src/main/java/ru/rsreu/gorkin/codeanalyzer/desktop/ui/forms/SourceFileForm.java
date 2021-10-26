@@ -51,6 +51,7 @@ public class SourceFileForm extends UnitGUIForm {
                                 HEX_LIGHT_COLOR,
                                 INTERFACE_TITLE,
                                 HEX_LIGHT_COLOR));
+                button.setFont(new Font("Serif", Font.BOLD, 16));
                 button.setBackground(INTERFACE_COLOR);
 
             } else {
@@ -60,6 +61,7 @@ public class SourceFileForm extends UnitGUIForm {
                                 HEX_LIGHT_COLOR,
                                 CLASS_TITLE,
                                 HEX_LIGHT_COLOR));
+                button.setFont(new Font("", Font.BOLD, 16));
                 button.setBackground(CLASS_COLOR);
             }
             button.addMouseListener(
@@ -91,6 +93,7 @@ public class SourceFileForm extends UnitGUIForm {
                             HEX_LIGHT_COLOR));
             button.setBackground(ENUM_COLOR);
             button.setBorderPainted(false);
+            button.setFont(new Font("Serif", Font.BOLD, 16));
             units.add(button);
         }
 
@@ -99,6 +102,7 @@ public class SourceFileForm extends UnitGUIForm {
 
 
         JButton sourceCodeUnitButton = new JButton(sourceCodeUnit.getFileName());
+        sourceCodeUnitButton.setFont(new Font("Serif", Font.BOLD, 16));
         sourceCodeUnitButton.addMouseListener(
                 new MouseAdapter() {
                     String title = sourceCodeUnit.getFileName();

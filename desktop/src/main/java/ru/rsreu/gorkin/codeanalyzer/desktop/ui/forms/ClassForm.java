@@ -49,6 +49,7 @@ public class ClassForm extends UnitGUIForm {
             button.setBackground(FIELD_COLOR);
             button.setBorderPainted(false);
 
+
             button.addMouseListener(
                     new MouseAdapter() {
                         @Override
@@ -56,6 +57,7 @@ public class ClassForm extends UnitGUIForm {
                             onOnceClickListener(unit, title, unit.getFieldDeclaration());
                         }
                     });
+            button.setFont(new Font("Serif", Font.BOLD, 16));
             units.add(button);
         }
 
@@ -77,6 +79,7 @@ public class ClassForm extends UnitGUIForm {
                             onOnceClickListener(unit, title, unit.getConstructorDeclaration());
                         }
                     });
+            button.setFont(new Font("Serif", Font.BOLD, 16));
             units.add(button);
         }
 
@@ -98,6 +101,7 @@ public class ClassForm extends UnitGUIForm {
                             onOnceClickListener(unit, title, unit.getMethodDeclaration());
                         }
                     });
+            button.setFont(new Font("Serif", Font.BOLD, 16));
             units.add(button);
         }
 
@@ -105,6 +109,7 @@ public class ClassForm extends UnitGUIForm {
         GridLayout gridLayout = new GridLayout(0,1, 5, 5);
 
         JButton sourceCodeUnitButton = new JButton(classUnit.getClassOrInterfaceDeclaration().getName().toString());
+        sourceCodeUnitButton.setFont(new Font("Serif", Font.BOLD, 16));
         sourceCodeUnitButton.addMouseListener(
                 new MouseAdapter() {
                     @Override

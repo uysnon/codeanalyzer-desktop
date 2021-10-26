@@ -118,7 +118,9 @@
                                 <children>
                                   <component id="a99be" class="javax.swing.JTable" binding="metricsTable">
                                     <constraints/>
-                                    <properties/>
+                                    <properties>
+                                      <font size="14" style="1"/>
+                                    </properties>
                                   </component>
                                 </children>
                               </scrollpane>
